@@ -17,8 +17,8 @@ if __name__== "__main__" :
     pygame.init()
     clock=pygame.time.Clock()
     windows = pygame.display.set_mode((800, 800))
-    pozadi = pygame.image.load("prsi_karty/ostatni/pozadi.jpg")
-    milos = pygame.image.load("prsi_karty/ostatni/milos.jpeg")
+    pozadi = pygame.image.load("ostatni/pozadi.jpg")
+    milos = pygame.image.load("ostatni/milos.jpeg")
 
     windows.blit(pozadi,(0,0))
     windows.blit(milos, (300, 100))
@@ -26,10 +26,15 @@ if __name__== "__main__" :
     karta=[]
     karty_obr=[]
     karty=balik_karet_plny
+    #nacitani prvnich dvou karet hrace
     for i in range(2):
-         karta.append(select_card(karty))
-         print("prsi_karty/karty/"+karta[i]+".jpg")
-        # karty_obr[i] = pygame.image.load("karty"+karta[i]+".jpg") 
+         karta.append("karty/"+select_card(karty)+".jpg")
+         karty_obr.append(pygame.image.load(karta[i]))
+         
+         windows.blit(karty_obr[i], (300+(i*200), 500)) 
+   
+
+  
 
 
 
@@ -41,7 +46,7 @@ if __name__== "__main__" :
                 pygame.quit()
                 sys.exit()
         
-        
+        clock.tick_busy_loop()
         
 
 
