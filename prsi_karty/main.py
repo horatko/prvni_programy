@@ -21,17 +21,19 @@ if __name__== "__main__" :
     milos = pygame.image.load("ostatni/milos.jpeg")
 
     windows.blit(pozadi,(0,0))
-    windows.blit(milos, (300, 100))
+    windows.blit(milos, (300, 10))
 
     karta=[]
-    karty_obr=[]
+    karty_hrac=[]
+    karty_milos=[]
     karty=balik_karet_plny
     #nacitani prvnich dvou karet hrace
     for i in range(2):
-         karta.append("karty/"+select_card(karty)+".jpg")
-         karty_obr.append(pygame.image.load(karta[i]))
          
-         windows.blit(karty_obr[i], (300+(i*200), 500)) 
+         karty_hrac.append(pygame.image.load("karty/"+select_card(karty)+".jpg"))
+         karty_milos.append(pygame.image.load("karty/"+select_card(karty)+".jpg"))
+         windows.blit(karty_hrac[i], (300+(i*105), 500))
+         windows.blit(karty_milos[i], (250+(i*105), 250)) 
    
 
   
