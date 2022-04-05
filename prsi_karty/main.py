@@ -1,10 +1,11 @@
 
 import random
+from tkinter import Button
 import pygame
 import sys
 
-balik_karet_plny = ["c_desitka","z_osma","k_spodek","l_eso", 
-                    "z_sedma", "z_spodek", "c_spodek", "k_eso", "k_desitka"]
+balik_karet_plny = ["c_desitka_10","z_osma_8","k_spodek_1","l_eso_11", 
+                    "z_sedma_7", "z_spodek_1", "c_spodek_1", "k_eso_11", "k_desitka_10"]
 
 #vybrat náhodnou kartu a nevracet ji
 def select_card(balicek):
@@ -13,11 +14,11 @@ def select_card(balicek):
     return karta 
 
 def secti_kartu(karta_vstup):
-    hodnota_karty=[]
-    for i in range(len(karta_v)):
-        if karta_vstup[i] is decimal :
+    hodnota_karty=""
+    for i in range(len(karta_vstup)):
+        if karta_vstup[i].isdigit()==True:
             hodnota_karty+=karta_vstup[i]
-    return hodnota_karty
+    return int(hodnota_karty)
 
 
 if __name__== "__main__" :
@@ -26,36 +27,44 @@ if __name__== "__main__" :
     windows = pygame.display.set_mode((800, 700))
     pozadi = pygame.image.load("ostatni/pozadi.jpg")
     milos = pygame.image.load("ostatni/milos.jpeg")
-
+    game_font = pygame.font.SysFont("comicsans", 35)
     windows.blit(pozadi,(0,0))
-    windows.blit(milos, (300, 10))
-
+    milos_okno=windows.blit(milos, (300, 10))
+    prvni_kolo=2
+    dalsi_kolo=1
     karta=[]
     karty_hrac=[]
     karty_milos=[]
     karty=balik_karet_plny
+    score_milos=0
     #nacitani prvnich dvou karet hrace
-    for i in range(2):
-         
-         karty_hrac.append(pygame.image.load("karty/"+select_card(karty)+".jpg"))
-         karty_milos.append(pygame.image.load("karty/"+select_card(karty)+".jpg"))
+    for i in range(prvni_kolo):
+         karty_hrac_pomoc=select_card(karty)
+         karty_milos_pomoc=select_card(karty)
+         karty_hrac.append(pygame.image.load("karty/"+(karty_hrac_pomoc)+".jpg"))
+         karty_milos.append(pygame.image.load("karty/"+(karty_milos_pomoc)+".jpg"))
+         score_milos+=secti_kartu(karty_milos_pomoc)
          windows.blit(karty_hrac[i], (300+(i*105), 500))
          windows.blit(karty_milos[i], (250+(i*105), 250)) 
-   
-
-  
-
-
-
-
+    
+    
+    score_milos_text = game_font.render(f"Score Miloš {score_milos}", True, (255, 255, 255))
+    windows.blit(score_milos_text,(500,85))
     while True :
+     
+
+            
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+               
+            if event.type == pygame.mouse.get_pressed():
+                pos=pygame.mouse.get_pos()
+                
         
-        clock.tick_busy_loop()
         
 
 
