@@ -3,7 +3,8 @@ import random
 import pygame
 import sys
 
-balik_karet_plny = ["c_desitka","z_osma","k_spodek","l_eso"]
+balik_karet_plny = ["c_desitka","z_osma","k_spodek","l_eso", 
+                    "z_sedma", "z_spodek", "c_spodek", "k_eso", "k_desitka"]
 
 #vybrat náhodnou kartu a nevracet ji
 def select_card(balicek):
@@ -11,12 +12,18 @@ def select_card(balicek):
     balicek.remove(karta)
     return karta 
 
+def secti_kartu(karta_vstup):
+    hodnota_karty=[]
+    for i in range(len(karta_v)):
+        if karta_vstup[i] is decimal :
+            hodnota_karty+=karta_vstup[i]
+    return hodnota_karty
 
 
 if __name__== "__main__" :
     pygame.init()
     clock=pygame.time.Clock()
-    windows = pygame.display.set_mode((800, 800))
+    windows = pygame.display.set_mode((800, 700))
     pozadi = pygame.image.load("ostatni/pozadi.jpg")
     milos = pygame.image.load("ostatni/milos.jpeg")
 
@@ -54,8 +61,7 @@ if __name__== "__main__" :
 
 
 
-        
-        
+    
 
 
 
