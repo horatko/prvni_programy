@@ -37,8 +37,14 @@ if __name__== "__main__" :
     milos = pygame.image.load("ostatni/milos.jpeg")
     game_font = pygame.font.SysFont("comicsans", 35)
     windows.blit(pozadi,(0,0))
+    karty_hrac=[]
+    karty_milos=[]
+    neprohra=True
     milos_okno=windows.blit(milos, (300, 10))
-    incerment=1
+    
+    score_hrac=0
+    score_milos=0
+    running=True
 
     
     prvni_kolo=2
@@ -46,7 +52,7 @@ if __name__== "__main__" :
     dalsi_kolo=1
     karta=[]
     karty_hrac=[]
-    karty_milos=[]
+    karty_hrac=[]
     karty=balik_karet_plny
 
     """
@@ -54,19 +60,23 @@ if __name__== "__main__" :
     #nacitani prvnich dvou karet hrace
     """
          karty_hrac_pomoc=select_card(karty)
-         karty_milos_pomoc=select_card(karty)
+        
+        karty_hrac=select_card(karty)
          karty_hrac.append(pygame.image.load("karty/"+(karty_hrac_pomoc)+".jpg"))
-         karty_milos.append(pygame.image.load("karty/"+(karty_milos_pomoc)+".jpg"))
-         score_milos+=secti_kartu(karty_milos_pomoc)
+         karty_hrac.append(pygame.image.load("karty/"+
+            karty_hrac)+".jpg"))
+         score_hrac+=secti_kartu
+            karty_hrac)
          windows.blit(karty_hrac[i], (300+(i*105), 500))
-         windows.blit(karty_milos[i], (250+(i*105), 250)) 
+         windows.blit(karty_hrac[i], (250+(i*105), 250)) 
     """
-    #score_milos_text = game_font.render(f"Score Miloš {lizni()}", True, (255, 255, 255))
-    #windows.blit(score_milos_text,(500,85))
+    #score_hrac_text = game_font.render(f"Score Miloš {score_hrac}", True, (255, 255, 255))
+    #windows.blit(score_hrac_text,(500,85))
    
 
 
-    while True :
+    while running :
+        
      
 
             
@@ -78,14 +88,47 @@ if __name__== "__main__" :
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                    
-                    pozice_X=100
-                    windows.blit(pygame.image.load("karty/"+(select_card(karty))+".jpg"),   ((pozice_X*incerment),250))
-                    incerment+=1
-             
-
-        
                 
+                    if event.key==pygame.K_SPACE:
+                        if neprohra:
+                     
+            
+                             incerment=0
+                             karty_hrac_pomoc=select_card(karty)
+                             karty_hrac.append(karty_hrac_pomoc)
+                             score_hrac+=secti_kartu(karty_hrac_pomoc)
+                             pozice_X=100
+                             windows.blit(pozadi,(0,0))
+                             for karta in karty_hrac:
+                        
+                                 windows.blit(pygame.image.load("karty/"+(karta)+".jpg"),   ((pozice_X+(pozice_X*incerment),500)))
+                                 incerment+=1
+                             if score_hrac>21 :
+                                 prohra = game_font.render(f"Přejel jsi ", True, (255, 255, 255))
+                                 windows.blit(prohra,(250,450))
+                                 neprohra=False
+                    if event.key==pygame.K_KP_ENTER:
+                        while score_milos <21 :
+                            if score_milos<score_hrac:
+                             incerment_milos=0
+                             karty_milos_pomoc=select_card(karty)
+                             karty_milos.append(karty_milos_pomoc)
+                             score_milos+=secti_kartu(karty_milos_pomoc)
+                             pozice_X=100
+                             windows.blit(pozadi,(0,0))
+                             for karta in karty_milos:
+                        
+                                 windows.blit(pygame.image.load("karty/"+(karta)+".jpg"),   ((pozice_X+(pozice_X*incerment_milos),200)))
+                                 incerment+=1
+                             if score_milos>21 :
+                                 prohra = game_font.render(f"Přejel jsi ", True, (255, 255, 255))
+                                 windows.blit(prohra,(250,10))
+                                 neprohra=False
+
+                
+                        
+                    
+
         
         
 
@@ -95,7 +138,12 @@ if __name__== "__main__" :
     
 
 
-
-
-        pygame.display.update()
+        
+        milos_okno=windows.blit(milos, (300, 10))
+        score_hrac_text = game_font.render(f"Score Hráč {score_hrac}", True, (255, 255, 255))
+        score_milos_text = game_font.render(f"Score Miloš {score_milos}", True, (255, 255, 255))
+        windows.blit(score_hrac_text,(400,400))
+        windows.blit(score_hrac_text,(50,10))
+        
+        pygame.display.flip()
         clock.tick(60)
