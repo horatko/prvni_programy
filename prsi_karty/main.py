@@ -107,23 +107,29 @@ if __name__== "__main__" :
                                  prohra = game_font.render(f"Přejel jsi ", True, (255, 255, 255))
                                  windows.blit(prohra,(250,450))
                                  neprohra=False
+                        else:
+                             running=False        
                     if event.key==pygame.K_KP_ENTER:
-                        while score_milos <21 :
-                            if score_milos<score_hrac:
+                         neprohra=True
+                         while score_milos <=21 and score_milos<score_hrac :
+                            
                              incerment_milos=0
                              karty_milos_pomoc=select_card(karty)
                              karty_milos.append(karty_milos_pomoc)
                              score_milos+=secti_kartu(karty_milos_pomoc)
                              pozice_X=100
                              windows.blit(pozadi,(0,0))
-                             for karta in karty_milos:
+                             for kart in karty_milos:
                         
-                                 windows.blit(pygame.image.load("karty/"+(karta)+".jpg"),   ((pozice_X+(pozice_X*incerment_milos),200)))
-                                 incerment+=1
+                                 windows.blit(pygame.image.load("karty/"+(kart)+".jpg"),   ((pozice_X+(pozice_X*incerment_milos),200)))
+                                 incerment_milos+=1
                              if score_milos>21 :
-                                 prohra = game_font.render(f"Přejel jsi ", True, (255, 255, 255))
-                                 windows.blit(prohra,(250,10))
-                                 neprohra=False
+                                 prohra = game_font.render(f"Přejel Miloš ", True, (255, 255, 255))
+                                 windows.blit(prohra,(600,10))
+                             if score_milos>=score_hrac and score_milos<=21 :
+                                 vyhra = game_font.render(f"Vyhrál Miloš ", True, (255, 255, 255))
+                                 windows.blit(vyhra,(600,10))
+                                 
 
                 
                         
@@ -143,7 +149,7 @@ if __name__== "__main__" :
         score_hrac_text = game_font.render(f"Score Hráč {score_hrac}", True, (255, 255, 255))
         score_milos_text = game_font.render(f"Score Miloš {score_milos}", True, (255, 255, 255))
         windows.blit(score_hrac_text,(400,400))
-        windows.blit(score_hrac_text,(50,10))
+        windows.blit(score_milos_text,(50,10))
         
         pygame.display.flip()
         clock.tick(60)
