@@ -1,6 +1,7 @@
 
+from cgitb import text
 import random
-from tkinter import Button
+from tkinter import *
 import pygame
 import sys
 
@@ -20,6 +21,13 @@ def secti_kartu(karta_vstup):
             hodnota_karty+=karta_vstup[i]
     return int(hodnota_karty)
 
+karty=balik_karet_plny
+     
+
+
+
+
+
 
 if __name__== "__main__" :
     pygame.init()
@@ -30,15 +38,21 @@ if __name__== "__main__" :
     game_font = pygame.font.SysFont("comicsans", 35)
     windows.blit(pozadi,(0,0))
     milos_okno=windows.blit(milos, (300, 10))
+    incerment=1
+
+    
     prvni_kolo=2
+    """
     dalsi_kolo=1
     karta=[]
     karty_hrac=[]
     karty_milos=[]
     karty=balik_karet_plny
-    score_milos=0
+
+    """
+    
     #nacitani prvnich dvou karet hrace
-    for i in range(prvni_kolo):
+    """
          karty_hrac_pomoc=select_card(karty)
          karty_milos_pomoc=select_card(karty)
          karty_hrac.append(pygame.image.load("karty/"+(karty_hrac_pomoc)+".jpg"))
@@ -46,10 +60,12 @@ if __name__== "__main__" :
          score_milos+=secti_kartu(karty_milos_pomoc)
          windows.blit(karty_hrac[i], (300+(i*105), 500))
          windows.blit(karty_milos[i], (250+(i*105), 250)) 
-    
-    
-    score_milos_text = game_font.render(f"Score Miloš {score_milos}", True, (255, 255, 255))
-    windows.blit(score_milos_text,(500,85))
+    """
+    #score_milos_text = game_font.render(f"Score Miloš {lizni()}", True, (255, 255, 255))
+    #windows.blit(score_milos_text,(500,85))
+   
+
+
     while True :
      
 
@@ -57,12 +73,18 @@ if __name__== "__main__" :
 
 
         for event in pygame.event.get():
+            
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-               
-            if event.type == pygame.mouse.get_pressed():
-                pos=pygame.mouse.get_pos()
+            if event.type == pygame.KEYDOWN:
+                    
+                    pozice_X=100
+                    windows.blit(pygame.image.load("karty/"+(select_card(karty))+".jpg"),   ((pozice_X*incerment),250))
+                    incerment+=1
+             
+
+        
                 
         
         
